@@ -28,6 +28,9 @@ def main():
         x = tmr
         screen.blit(bg_img, [-x, 0])
 
+        # 練習7：2枚目の背景画像を描画
+        screen.blit(bg_img, [-x + 1600, 0])
+
         # 練習4：こうかとん画像の描画
         screen.blit(kk_img, [300, 200])
 
@@ -43,3 +46,4 @@ if __name__ == "__main__":
     main()
     pg.quit()
     sys.exit()
+
