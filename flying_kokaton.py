@@ -10,17 +10,15 @@ def main():
     screen = pg.display.set_mode((800, 600))
     clock = pg.time.Clock()
 
-    # 練習1：背景画像の読み込み
+    # 背景画像の読み込みと左右反転
     bg_img = pg.image.load("fig/pg_bg.jpg")
-
-    # 練習8：背景画像を左右反転
     bg_img_flip = pg.transform.flip(bg_img, True, False)
 
-    # 練習3：こうかとん画像の読み込みと左右反転
+    # こうかとん画像の読み込みと左右反転
     kk_img = pg.image.load("fig/3.png")
     kk_img = pg.transform.flip(kk_img, True, False)
 
-    # 練習10：こうかとんのRectと初期座標を設定
+    # こうかとんの初期座標
     kk_rct = kk_img.get_rect()
     kk_rct.center = (300, 200)
 
@@ -31,14 +29,17 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        # 練習9：背景画像の無限スクロール
+        # 背景画像の無限スクロール
         x = tmr % 3200
         screen.blit(bg_img, [-x, 0])
         screen.blit(bg_img_flip, [-x + 1600, 0])
         screen.blit(bg_img, [-x + 3200, 0])
 
-        # 練習10：全キーの押下状態を取得
+        # 全キーの押下状態を取得
         key_lst = pg.key.get_pressed()
+
+        # 演習1：背景と同じ速度で左に流す
+        kk_rct.move_ip(-1, 0)
 
         # 上矢印キーで上に移動
         if key_lst[pg.K_UP]:
@@ -52,17 +53,15 @@ def main():
         if key_lst[pg.K_LEFT]:
             kk_rct.move_ip(-1, 0)
 
-        # 右矢印キーで右に移動
+        # 演習1：左への移動を打ち消して右に進む
         if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip(1, 0)
+            kk_rct.move_ip(2, 0)
 
-        # Rectを使用してこうかとんを描画
+        # こうかとんの描画
         screen.blit(kk_img, kk_rct)
 
         pg.display.update()
         tmr += 1
-
-        # 練習6：FPSを200に設定
         clock.tick(200)
 
 
