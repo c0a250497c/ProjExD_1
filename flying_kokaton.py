@@ -39,23 +39,27 @@ def main():
         key_lst = pg.key.get_pressed()
 
         # 演習1：背景と同じ速度で左に流す
-        kk_rct.move_ip(-1, 0)
+        dx = -1
+        dy = 0
 
-        # 上矢印キーで上に移動
+        # 上矢印キーによる移動量
         if key_lst[pg.K_UP]:
-            kk_rct.move_ip(0, -1)
+            dy -= 1
 
-        # 下矢印キーで下に移動
+        # 下矢印キーによる移動量
         if key_lst[pg.K_DOWN]:
-            kk_rct.move_ip(0, 1)
+            dy += 1
 
-        # 左矢印キーで左に移動
+        # 左矢印キーによる移動量
         if key_lst[pg.K_LEFT]:
-            kk_rct.move_ip(-1, 0)
+            dx -= 1
 
-        # 演習1：左への移動を打ち消して右に進む
+        # 右矢印キーによる移動量
         if key_lst[pg.K_RIGHT]:
-            kk_rct.move_ip(2, 0)
+            dx += 2
+
+        # 演習2：移動量をまとめて1回で反映する
+        kk_rct.move_ip(dx, dy)
 
         # こうかとんの描画
         screen.blit(kk_img, kk_rct)
