@@ -20,6 +20,10 @@ def main():
     kk_img = pg.image.load("fig/3.png")
     kk_img = pg.transform.flip(kk_img, True, False)
 
+    # 練習10：こうかとんのRectと初期座標を設定
+    kk_rct = kk_img.get_rect()
+    kk_rct.center = (300, 200)
+
     tmr = 0
 
     while True:
@@ -27,20 +31,33 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        # 練習9：背景画像の座標を繰り返す
+        # 練習9：背景画像の無限スクロール
         x = tmr % 3200
-
-        # 練習5：1枚目の背景画像
         screen.blit(bg_img, [-x, 0])
-
-        # 練習7・8：左右反転した2枚目の背景画像
         screen.blit(bg_img_flip, [-x + 1600, 0])
-
-        # 練習9：3枚目の背景画像
         screen.blit(bg_img, [-x + 3200, 0])
 
-        # 練習4：こうかとん画像の描画
-        screen.blit(kk_img, [300, 200])
+        # 練習10：全キーの押下状態を取得
+        key_lst = pg.key.get_pressed()
+
+        # 上矢印キーで上に移動
+        if key_lst[pg.K_UP]:
+            kk_rct.move_ip(0, -1)
+
+        # 下矢印キーで下に移動
+        if key_lst[pg.K_DOWN]:
+            kk_rct.move_ip(0, 1)
+
+        # 左矢印キーで左に移動
+        if key_lst[pg.K_LEFT]:
+            kk_rct.move_ip(-1, 0)
+
+        # 右矢印キーで右に移動
+        if key_lst[pg.K_RIGHT]:
+            kk_rct.move_ip(1, 0)
+
+        # Rectを使用してこうかとんを描画
+        screen.blit(kk_img, kk_rct)
 
         pg.display.update()
         tmr += 1
