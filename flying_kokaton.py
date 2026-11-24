@@ -13,6 +13,9 @@ def main():
     # 練習1：背景画像の読み込み
     bg_img = pg.image.load("fig/pg_bg.jpg")
 
+    # 練習8：背景画像を左右反転
+    bg_img_flip = pg.transform.flip(bg_img, True, False)
+
     # 練習3：こうかとん画像の読み込みと左右反転
     kk_img = pg.image.load("fig/3.png")
     kk_img = pg.transform.flip(kk_img, True, False)
@@ -24,12 +27,17 @@ def main():
             if event.type == pg.QUIT:
                 return
 
-        # 練習5：背景画像を右から左へ移動
-        x = tmr
+        # 練習9：背景画像の座標を繰り返す
+        x = tmr % 3200
+
+        # 練習5：1枚目の背景画像
         screen.blit(bg_img, [-x, 0])
 
-        # 練習7：2枚目の背景画像を描画
-        screen.blit(bg_img, [-x + 1600, 0])
+        # 練習7・8：左右反転した2枚目の背景画像
+        screen.blit(bg_img_flip, [-x + 1600, 0])
+
+        # 練習9：3枚目の背景画像
+        screen.blit(bg_img, [-x + 3200, 0])
 
         # 練習4：こうかとん画像の描画
         screen.blit(kk_img, [300, 200])
@@ -37,7 +45,7 @@ def main():
         pg.display.update()
         tmr += 1
 
-        # 練習6：FPSを200に変更
+        # 練習6：FPSを200に設定
         clock.tick(200)
 
 
@@ -46,4 +54,3 @@ if __name__ == "__main__":
     main()
     pg.quit()
     sys.exit()
-
